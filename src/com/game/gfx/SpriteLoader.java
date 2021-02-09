@@ -27,14 +27,17 @@ public class SpriteLoader {
 					SpriteLoader.path = path;
 					loadIMG(path);
 					sprites = new HashMap<String,List<BufferedImage>>();
+					crop("player",0,4,1,1,17,12);
 					crop("squid",0,0,1,2,18,10);
 					crop("crab",1,0,1,2,18,10);
 					crop("octopus",2,0,1,2,18,10);
-					crop("explosion",4,0,1,1,14,14);
-					crop("player",0,4,1,1,17,12);
-			
+					crop("explosion0",4,0,1,1,14,14);
+					crop("fadeExp",6,2,1,1,10,10);
+					crop("laserR",0,2,2,1,5,10);
+					crop("laserL",2,2,2,1,5,10);
+					crop("mortier",4,2,4,1,5,10);
+					crop("hsM",7,2,4,1,5,10);
 			}
-			
 			
 			private void loadIMG(String path) {
 				try {

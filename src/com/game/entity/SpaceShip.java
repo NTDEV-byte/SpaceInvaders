@@ -4,14 +4,20 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 
 import com.game.gfx.Animation;
+import com.game.gfx.SpriteLoader;
 
 public abstract class SpaceShip extends Entity{
 
 		protected Animation animation;
 			
 			public SpaceShip(String name,Rectangle bounds) { 
-				 animation = new Animation(name);
-				 this.image = animation.getAnimation();
+				 if(!(this instanceof Player)) {
+					 animation = new Animation(name);      
+					 this.image = animation.getAnimation();
+				 }else {
+					 this.image = SpriteLoader.sprites.get("player").get(0);
+				 }
+				 
 				 this.bounds = bounds;
 			}
 			

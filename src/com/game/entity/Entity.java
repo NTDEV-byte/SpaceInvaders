@@ -10,7 +10,7 @@ public abstract class Entity {
 		protected BufferedImage image;
 		protected boolean removed;
 		protected int lives;
-		
+		protected int speed = 1;
 		
 		public abstract void update();
 		public abstract void render(Graphics g);
