@@ -10,6 +10,8 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
+import com.game.Game;
+
 
 public class SpriteLoader {
 	
@@ -59,7 +61,10 @@ public class SpriteLoader {
 						   for(int y1=0;y1<spriteH;y1++) {
 							    for(int x1=0;x1<spriteW;x1++) { 
 							    	int col = pixels[(x1 + ((x0 + x) * spriteW)) + (y1 + ((y0 + y) * spriteH)) *  SpriteLoader.width];
-							    	if(col!=0xffff00ff)spritePixels[x1 + y1 * spriteW] = col;
+							    	if(col==0xffff00ff) {
+							    		  col = Game.FOND.getRGB();
+							    	 }
+							     spritePixels[x1 + y1 * spriteW] = col;
 							    }
 						   }
 						   BufferedImage img = new BufferedImage(spriteW,spriteH,BufferedImage.TYPE_INT_RGB);

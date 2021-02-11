@@ -10,6 +10,8 @@ import com.game.input.InputHandler;
 
 public class Player extends SpaceShip{
 	
+	public static final int WIDTH = 60;
+	public static final int HEIGHT = 60;
 	
 	private PlayerFire fire;
 	private InputHandler input = Game.input;
@@ -17,8 +19,6 @@ public class Player extends SpaceShip{
 	public Player(Rectangle bounds) {
 		super("player", bounds);
 	}
-	
-	
 	
 	public void update() {
 		 if(input.right()) {

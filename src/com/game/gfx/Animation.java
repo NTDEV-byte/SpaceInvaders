@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Animation {
 		
-		public static final int RATE_ANIMATION = 25;
+		public static final int RATE_ANIMATION = 250;
 	
 		private List<BufferedImage> sprites;
 		private BufferedImage frame;
@@ -25,13 +25,17 @@ public class Animation {
 				}
 
 				public void animate() { 
-					if(timer < 7500) timer++; timer = 0;
+					if(timer < 7500) {
+						timer++;
+					}else {
+						timer = 0;
+					}
 					if(timer % RATE_ANIMATION == 0) { 
-							if(current >= sprites.size() - 1) { 
+							if(current >= sprites.size()) { 
 								current = 0;
 							}
-							current++;  
 						frame = sprites.get(current);
+						current++;  
 							
 					}
 				}

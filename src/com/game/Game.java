@@ -16,13 +16,16 @@ public class Game extends JPanel{
 		/**
 	 * 
 	 */
+	
+	
+	public static Color FOND = new Color(0x0);
+	
 	private static final long serialVersionUID = 1L;
 		public static final int WIDTH = 800;
 		public static final int HEIGHT = 600;
 		public static InputHandler input = new InputHandler();
 		private JFrame window;
 		private Level level = new Level();
-		//private List<BufferedImage>  img = SpriteLoader.sprites.get("explosion0");
 		
 		public Game() {
 			window = new JFrame("SpaceInvaders");
@@ -38,16 +41,13 @@ public class Game extends JPanel{
 		
 		public void paint(Graphics g) { 
 			Graphics2D g2 = (Graphics2D)g;
-			g.setColor(Color.black);
+			g.setColor(FOND);
 			g.fillRect(0, 0, getWidth(), getHeight());
 			level.update();
 			level.render(g2);
-//			g.drawImage(img.get(0), 150, 150, 100, 100,null);
-			
 			try {
 				Thread.sleep(1);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			repaint();
