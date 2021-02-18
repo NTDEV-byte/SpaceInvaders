@@ -23,9 +23,9 @@ public class Game extends JPanel{
 	private static final long serialVersionUID = 1L;
 		public static final int WIDTH = 800;
 		public static final int HEIGHT = 600;
+		public static Level level = new Level();
 		public static InputHandler input = new InputHandler();
 		private JFrame window;
-		private Level level = new Level();
 		
 		public Game() {
 			window = new JFrame("SpaceInvaders");
@@ -37,6 +37,7 @@ public class Game extends JPanel{
 			window.addKeyListener(input);
 			window.add(this);
 			window.pack();
+			level.initLevel();
 		}
 		
 		public void paint(Graphics g) { 

@@ -10,6 +10,14 @@ import com.game.input.InputHandler;
 
 public class Player extends SpaceShip{
 	
+	public PlayerFire getFire() {
+		return fire;
+	}
+
+	public void setFire(PlayerFire fire) {
+		this.fire = fire;
+	}
+
 	public static final int WIDTH = 60;
 	public static final int HEIGHT = 60;
 	
@@ -40,6 +48,14 @@ public class Player extends SpaceShip{
 	
 	public boolean canShoot() { 
 		return  fire == null;
+	}
+	
+	public boolean shooted() { 
+		return fire != null;
+	}
+	
+	public PlayerFire getShootedFire() { 
+		 return (shooted()) ? fire : null;
 	}
 	
 	public void render(Graphics g) { 

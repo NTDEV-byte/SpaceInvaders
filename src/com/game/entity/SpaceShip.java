@@ -3,6 +3,7 @@ package com.game.entity;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
+import com.game.entity.fires.PlayerFire;
 import com.game.gfx.Animation;
 import com.game.gfx.SpriteLoader;
 
@@ -36,6 +37,13 @@ public abstract class SpaceShip extends Entity{
 				bounds.y+=yDir;
 				animation.animate();
 				image = animation.getAnimation();
+				PlayerFire fire = level.getPlayer().getShootedFire();
+				if(fire!=null) { 
+					if(collision(fire)) { 
+						 remove();
+						 level.getPlayer().setFire(null);
+					}
+				}
 			}
 			
 			private void pickDirection() {

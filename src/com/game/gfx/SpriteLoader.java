@@ -34,6 +34,7 @@ public class SpriteLoader {
 					crop("crab",1,0,1,2,18,10);
 					crop("octopus",2,0,1,2,18,10);
 					crop("explosion0",4,0,1,1,14,14);
+					crop("explosion1",6,2,1,1,10,10);
 					crop("fadeExp",6,2,1,1,10,10);
 					crop("laserR",0,2,2,1,5,10);
 					crop("laserL",2,2,2,1,5,10);

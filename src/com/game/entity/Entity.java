@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import java.util.Random;
 
 import com.game.Game;
+import com.game.level.Level;
 
 public abstract class Entity {
 	
@@ -18,6 +19,7 @@ public abstract class Entity {
 		protected int xDir,yDir;
 		protected int speed = 1;
 		protected int timer;
+		protected Level level = Game.level;
 		
 		public abstract void update();
 		public abstract void render(Graphics g);
