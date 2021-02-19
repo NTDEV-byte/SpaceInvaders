@@ -6,17 +6,19 @@ import java.util.List;
 
 public class Animation {
 		
+		public static Animation EXPLOSION0 = new Animation("explosion0");
+		public static Animation EXPLOSION1 = new Animation("explosion1");
+		public static Animation EXPLOSIONS = Animation.Fusion(EXPLOSION0, EXPLOSION1);
+	
+	
 		public static int RATE_ANIMATION = 250;
-	//	public static Animation EXPLOSION0 = new Animation("explosion0",150);
-		//public static Animation EXPLOSION1 = new Animation("explosion1");
-	//	public static Animation EXPLOSIONS = Animation.Fusion(EXPLOSION0, EXPLOSION1);
 		
 		protected List<BufferedImage> sprites;
 		protected BufferedImage frame;
 		protected int current;
 		protected int timer;
-		protected boolean fullCircle;
-		
+		protected boolean fullCircle,rendred;
+		protected int x,y,w,h;
 		
 				protected Animation() {
 					
@@ -44,7 +46,6 @@ public class Animation {
 					Animation.RATE_ANIMATION = rate;
 				}
 
-
 				public void animate() { 
 					if(timer < 7500) {
 						timer++;
@@ -60,10 +61,25 @@ public class Animation {
 						current++;  
 					}
 				}
-				
 
-				public void render(Graphics g,int x,int y,int w,int h) {
-					 g.drawImage(frame, x, y, w, h, null);
+				public void render(Graphics g) {
+					g.drawImage(frame, x, y, w, h, null);
+				}
+				
+				public boolean fullRotation() { 
+					return fullCircle;
+				}
+				
+				
+				public boolean rendred() {
+					return rendred;
+				}
+				
+				public void setAnimationLocation(int x,int y,int w,int h) {
+					 this.x = x;
+					 this.y = y;
+					 this.w = w;
+					 this.h = h;
 				}
 				
 				public Animation fusionAnimation(Animation animation) { 
@@ -73,6 +89,7 @@ public class Animation {
 					  return this;
 				}
 				
+				
 				public List<BufferedImage> getSprites() {
 					return sprites;
 				}
@@ -81,7 +98,12 @@ public class Animation {
 					this.sprites = sprites;
 				}
 
-				
+				public boolean isRendred() {
+					return rendred;
+				}
+				public void setRendred(boolean rendred) {
+					this.rendred = rendred;
+				}
 				public BufferedImage getAnimation() { 
 					return frame;
 				}

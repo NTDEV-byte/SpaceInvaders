@@ -2,9 +2,8 @@ package com.game.level;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
+import java.util.Vector;
 
 import com.game.Game;
 import com.game.entity.Crab;
@@ -13,7 +12,7 @@ import com.game.entity.Octopus;
 import com.game.entity.Player;
 import com.game.entity.SpaceShip;
 import com.game.entity.Squid;
-import com.game.gfx.FlashAnimation;
+import com.game.gfx.Animation;
 
 public class Level {
 	
@@ -21,14 +20,14 @@ public class Level {
 	public static final int SQUID = 1;
 	public static final int OCTOPUS = 2;
 	
-		private List<Entity> levelObjects;
-		//private List<FlashAnimation> animations;
+		private Vector<Entity> levelObjects;
+		private Vector<Animation> animations;
 		private Player player;
 		private Random random;
 		
 			public Level() { 
-				levelObjects = new ArrayList<Entity>();
-			//	animations = new ArrayList<FlashAnimation>();
+				levelObjects = new Vector<Entity>();
+				animations = new Vector<Animation>();
 				random = new Random();
 			}
 
@@ -45,8 +44,8 @@ public class Level {
 			}
 
 			
-		public void addAnimation(FlashAnimation a) { 
-			///animations.add(a);
+		public synchronized void addAnimation(Animation a) { 
+			animations.add(a);
 		}
 		
 		private void generateMonsters(int xstart,int ystart,int xS,int yS,int perC,int perL) { 
@@ -80,39 +79,42 @@ public class Level {
 			for(Entity e : levelObjects) { 
 				e.update();
 			}
-			/*for(FlashAnimation fa : animations) {
-				fa.update();
-			}*/
+			for(Animation a : animations) { 
+				a.animate();
+			}
 			removeDestroyedSpaceShips();
-			//removeTerminatedAnimations();
+			removeTerminatedAnimations();
 		}
 		
-		public void render(Graphics g) { 
+		public void render(Graphics g) {
+			if(levelObjects.size() > 0) {
 			for(Entity e : levelObjects) { 
 				  e.render(g);
+				}
 			}
-			//for(FlashAnimation fa : animations) {
-				//fa.render(g);
-			//}
+			if(animations.size() > 0) {
+			for(Animation fa : animations) {
+				fa.render(g);
+				}
+			}
 		}
 		
-		private void removeDestroyedSpaceShips() { 
+		private synchronized void removeDestroyedSpaceShips() { 
 			for(int i=0;i<levelObjects.size();i++) {
-				  if(levelObjects.get(i).isRemoved()) {
-					   levelObjects.remove(i);
-				  }
-			}
-		}
-		/*
-		private void removeTerminatedAnimations() { 
-			for(int i=0;i<animations.size();i++) {
-				  if(animations.get(i).terminated()) {
+				  if(levelObjects.get(i).isRemoved() && levelObjects.size() > 0) {
 					   levelObjects.remove(i);
 				  }
 			}
 		}
 		
-		*/
+		private synchronized void removeTerminatedAnimations() { 
+			for(int i=0;i<animations.size();i++) {
+				  if(animations.get(i).fullRotation() || animations.get(i).isRendred()) {
+					   animations.remove(i);
+				  }
+				 
+			}
+		}
 		
 		public Player getPlayer() {
 			return player;

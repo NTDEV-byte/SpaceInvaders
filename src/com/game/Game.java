@@ -10,12 +10,12 @@ import javax.swing.JPanel;
 
 import com.game.input.InputHandler;
 import com.game.level.Level;
+import com.game.sound.SoundPlayer;
 
 public class Game extends JPanel{
 		
-		/**
-	 * 
-	 */
+		/**/
+	
 	
 	
 	public static Color FOND = new Color(0x0);
@@ -55,6 +55,7 @@ public class Game extends JPanel{
 		}
 		
 		public static void main(String args[]) { 
+			SoundPlayer.SP.play();
 			  new Game();
 		}
 
