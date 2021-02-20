@@ -2,11 +2,12 @@ package com.game.entity.fires;
 
 import java.awt.Rectangle;
 
+import com.game.entity.SpaceShip;
+
 public class Mortier extends Fire{
 
-	public Mortier(String name, Rectangle bounds) {
-		super(name, bounds);
-		// TODO Auto-generated constructor stub
+	public Mortier(Rectangle bounds,SpaceShip shooter) {
+		super("mortier", bounds,shooter);
 	}
 
 }

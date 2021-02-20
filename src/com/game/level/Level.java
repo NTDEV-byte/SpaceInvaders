@@ -12,6 +12,7 @@ import com.game.entity.Octopus;
 import com.game.entity.Player;
 import com.game.entity.SpaceShip;
 import com.game.entity.Squid;
+import com.game.entity.fires.Fire;
 import com.game.gfx.Animation;
 
 public class Level {
@@ -22,12 +23,14 @@ public class Level {
 	
 		private Vector<Entity> levelObjects;
 		private Vector<Animation> animations;
+		private Vector<Fire> fires;
 		private Player player;
 		private Random random;
 		
 			public Level() { 
 				levelObjects = new Vector<Entity>();
 				animations = new Vector<Animation>();
+				fires = new Vector<Fire>();
 				random = new Random();
 			}
 
@@ -46,6 +49,15 @@ public class Level {
 			
 		public synchronized void addAnimation(Animation a) { 
 			animations.add(a);
+		}
+		
+		public synchronized void addEntity(Entity e) { 
+			if(e instanceof Fire) {
+				 fires.add((Fire)e);
+				}
+			else {
+				levelObjects.add(e);
+			}
 		}
 		
 		private void generateMonsters(int xstart,int ystart,int xS,int yS,int perC,int perL) { 
@@ -76,14 +88,24 @@ public class Level {
 		}
 			
 		public void update() { 
-			for(Entity e : levelObjects) { 
-				e.update();
-			}
-			for(Animation a : animations) { 
-				a.animate();
-			}
+			if(levelObjects.size() > 0) {
+				for(Entity e : levelObjects) { 
+					  e.update();
+					}
+				}
+				if(animations.size() > 0) {
+				for(Animation fa : animations) {
+					fa.animate();
+					}
+				}
+				if(fires.size() > 0) {
+					for(Fire f : fires) {
+						f.update();
+					}
+				}
 			removeDestroyedSpaceShips();
 			removeTerminatedAnimations();
+			removeFires();
 		}
 		
 		public void render(Graphics g) {
@@ -95,6 +117,11 @@ public class Level {
 			if(animations.size() > 0) {
 			for(Animation fa : animations) {
 				fa.render(g);
+				}
+			}
+			if(fires.size() > 0) {
+				for(Fire f : fires) {
+					f.render(g);
 				}
 			}
 		}
@@ -115,6 +142,14 @@ public class Level {
 				 
 			}
 		}
+
+		private synchronized void removeFires() { 
+			for(int i=0;i<fires.size();i++) {
+				  if(fires.get(i).isRemoved()) {
+					  fires.remove(i);
+				  }
+			}
+		}
 		
 		public Player getPlayer() {
 			return player;
@@ -122,6 +157,18 @@ public class Level {
 
 		public void setPlayer(Player player) {
 			this.player = player;
+		}
+
+		public Vector<Entity> getLevelObjects() {
+			return levelObjects;
+		}
+
+		public Vector<Animation> getAnimations() {
+			return animations;
+		}
+
+		public Vector<Fire> getFires() {
+			return fires;
 		}
 
 }

@@ -8,4 +8,10 @@ public class Crab extends SpaceShip{
 		super("crab", bounds);
 	}
 
+	@Override
+	protected void shoot() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

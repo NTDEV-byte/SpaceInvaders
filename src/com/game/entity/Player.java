@@ -7,6 +7,7 @@ import java.awt.Rectangle;
 import com.game.Game;
 import com.game.entity.fires.PlayerFire;
 import com.game.input.InputHandler;
+import com.game.sound.SoundPlayer;
 
 public class Player extends SpaceShip{
 	
@@ -35,12 +36,20 @@ public class Player extends SpaceShip{
 		 if(input.left()) { 
 			 bounds.x-=speed;
 		 }
+		 
+		 shoot();
+		
+	}
+	
+	public void shoot() { 
 		 if(input.space() && canShoot()) { 
 			 fire = new PlayerFire(Color.yellow,new Rectangle(bounds.x + PlayerFire.FIX_X,bounds.y + PlayerFire.FIX_Y ,5,15));
+				SoundPlayer.SP.play("shoot");
 		 }	
 		 if(fire!=null) {
 			    fire.update();
 			    if(fire.isRemoved()) { 
+			    	SoundPlayer.SP.close();
 					  fire = null;
 				 }
 		 }

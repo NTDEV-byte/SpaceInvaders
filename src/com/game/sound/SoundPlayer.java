@@ -1,9 +1,10 @@
 package com.game.sound;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
 
+import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
@@ -13,13 +14,14 @@ public class SoundPlayer {
 		
 
 	
-		
+		private static String names[] = {"astro.wav","main.wav","shoot.wav"};
+		private static HashMap<String,AudioInputStream> sounds = new HashMap<String,AudioInputStream>();
 		private static Clip clip = getClip();
-		public static SoundPlayer SP = new SoundPlayer("/main.wav",true);
+		public static SoundPlayer SP = new SoundPlayer();
 		
-					public SoundPlayer(String path,boolean url) { 
-						if(url)	openSoundURL(path);
-						else openSound(path);
+					public SoundPlayer() { 
+						loadSounds();
+					//	play("main");
 					}
 					
 					private static Clip getClip() { 
@@ -32,52 +34,46 @@ public class SoundPlayer {
 						
 					}
 					
-					public void openSound(String path) { 
-						try {
-							clip.open(AudioSystem.getAudioInputStream(new File(path).getAbsoluteFile()));
-						} catch (LineUnavailableException e) {
-							e.printStackTrace();
-						} catch (IOException e) {
-							e.printStackTrace();
-						} catch (UnsupportedAudioFileException e) {
-							e.printStackTrace();
+					private void loadSounds() {
+						for(int i=0;i<names.length;i++) { 
+						  sounds.put(names[i].split("\\.")[0], openSoundURL("/"+names[i]));
 						}
 					}
 					
 					
-					public void openSoundURL(String name) { 
+					public AudioInputStream openSoundURL(String name) { 
 						try {
 							URL u = SoundPlayer.class.getResource(name);
-							clip.open(AudioSystem.getAudioInputStream(u));
-						} catch (LineUnavailableException e) {
-							e.printStackTrace();
+							return AudioSystem.getAudioInputStream(u);
 						} catch (IOException e) {
 							e.printStackTrace();
 						} catch (UnsupportedAudioFileException e) {
 							e.printStackTrace();
 						}
+						return null;
 					}
 					
 
-					public void play(String path) {
-						stop();
+					public void play(String name) {
+						close();
+						try {
+							clip.open(sounds.get(name));
+						} catch (LineUnavailableException | IOException e) {
+							e.printStackTrace();
+						}
 						clip.start();
-						loop();
 					}
-					
-					public void play() {
-						clip.start();
-					}
-					
 					
 					public void stop() {
 						 clip.stop();
 					}
 					
+					public void close() { 
+						clip.close();
+					}
+					
 					public void loop() { 
 						clip.loop(Clip.LOOP_CONTINUOUSLY);
 					}
-	
-					
 
 }

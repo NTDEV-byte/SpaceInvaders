@@ -1,5 +1,13 @@
 package com.game.entity.fires;
 
-public class Hsm {
+import java.awt.Rectangle;
+
+import com.game.entity.SpaceShip;
+
+public class Hsm extends Fire{
+
+	public Hsm(Rectangle bounds,SpaceShip shooter) {
+		super("hsM", bounds,shooter);
+	}
 
 }

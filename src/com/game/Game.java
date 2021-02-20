@@ -55,7 +55,6 @@ public class Game extends JPanel{
 		}
 		
 		public static void main(String args[]) { 
-			SoundPlayer.SP.play();
 			  new Game();
 		}
 
