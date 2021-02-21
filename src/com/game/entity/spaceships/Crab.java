@@ -1,4 +1,4 @@
-package com.game.entity;
+package com.game.entity.spaceships;
 
 import java.awt.Rectangle;
 
@@ -10,7 +10,6 @@ public class Crab extends SpaceShip{
 
 	@Override
 	protected void shoot() {
-		// TODO Auto-generated method stub
 		
 	}
 

@@ -2,7 +2,7 @@ package com.game.entity.fires;
 
 import java.awt.Rectangle;
 
-import com.game.entity.SpaceShip;
+import com.game.entity.spaceships.SpaceShip;
 
 public class Hsm extends Fire{
 

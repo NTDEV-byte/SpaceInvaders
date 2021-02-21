@@ -5,11 +5,11 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.List;
 
-import com.game.entity.Crab;
 import com.game.entity.Entity;
-import com.game.entity.Octopus;
-import com.game.entity.SpaceShip;
-import com.game.entity.Squid;
+import com.game.entity.spaceships.Crab;
+import com.game.entity.spaceships.Octopus;
+import com.game.entity.spaceships.SpaceShip;
+import com.game.entity.spaceships.Squid;
 import com.game.gfx.Animation;
 import com.game.gfx.SpriteLoader;
 
@@ -22,7 +22,7 @@ public class Fire extends Entity{
 	
 		public Fire(String name,Rectangle bounds,SpaceShip ship) {
 			if(SpriteLoader.sprites.containsKey(name)) {
-				animation = new Animation(name);
+				animation = new Animation(name,20);
 				this.image = animation.getAnimation();
 			}
 			else{
@@ -41,6 +41,8 @@ public class Fire extends Entity{
 		@Override
 		public void update() {
 			bounds.y+=speed;
+			animation.animate();
+			image = animation.getAnimation();
 			collisionWithSpaceShips();
 		}
 	

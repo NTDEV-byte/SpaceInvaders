@@ -11,7 +11,6 @@ public class Animation {
 		public static Animation EXPLOSIONS = Animation.Fusion(EXPLOSION0, EXPLOSION1);
 	
 	
-		public static int RATE_ANIMATION = 250;
 		
 		protected List<BufferedImage> sprites;
 		protected BufferedImage frame;
@@ -19,10 +18,13 @@ public class Animation {
 		protected int timer;
 		protected boolean fullCircle,rendred;
 		protected int x,y,w,h;
+		protected int rate_animation = 250;
+		
 		
 				protected Animation() {
-					
+				
 				}
+				
 				public Animation(String name) { 
 					sprites = SpriteLoader.sprites.get(name);
 					this.frame = sprites.get(0);
@@ -43,7 +45,7 @@ public class Animation {
 					if(sprites.size() < 2) { 
 						 System.err.println("Warning Animation Size < 2 !");
 					}
-					Animation.RATE_ANIMATION = rate;
+					this.rate_animation = rate;
 				}
 
 				public void animate() { 
@@ -52,7 +54,7 @@ public class Animation {
 					}else {
 						timer = 0;
 					}
-					if(timer % RATE_ANIMATION == 0) { 
+					if(timer % rate_animation == 0) { 
 							if(current >= sprites.size()) { 
 								current = 0;
 								fullCircle = true;
@@ -62,6 +64,7 @@ public class Animation {
 					}
 				}
 
+			
 				public void render(Graphics g) {
 					g.drawImage(frame, x, y, w, h, null);
 				}
@@ -69,7 +72,6 @@ public class Animation {
 				public boolean fullRotation() { 
 					return fullCircle;
 				}
-				
 				
 				public boolean rendred() {
 					return rendred;
@@ -89,6 +91,13 @@ public class Animation {
 					  return this;
 				}
 				
+				public int getRate_animation() {
+					return rate_animation;
+				}
+				
+				public void setRate_animation(int rate_animation) {
+					this.rate_animation = rate_animation;
+				}
 				
 				public List<BufferedImage> getSprites() {
 					return sprites;

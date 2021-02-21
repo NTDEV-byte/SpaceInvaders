@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import java.util.Random;
 
 import com.game.Game;
+import com.game.entity.spaceships.SpaceShip;
 import com.game.level.Level;
 
 public abstract class Entity {

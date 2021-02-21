@@ -1,11 +1,14 @@
-package com.game.entity;
+package com.game.entity.spaceships;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
+import com.game.entity.Entity;
+import com.game.entity.Player;
 import com.game.entity.fires.PlayerFire;
 import com.game.gfx.Animation;
 import com.game.gfx.SpriteLoader;
+import com.game.sound.SoundPlayer;
 
 public abstract class SpaceShip extends Entity{
 	
@@ -15,7 +18,7 @@ public abstract class SpaceShip extends Entity{
 	public static final int EXPLOSION_WIDTH = 40;
 	public static final int EXPLOSION_HEIGHT = 40;
 	public static final int RATE_DIRECTION = 200;
-	public static final int RATE_FIRE = 300;
+	public static final int RATE_FIRE = 500;
 	public static final int WIDTH = 40;
 	public static final int HEIGHT = 40;
 	
@@ -37,7 +40,7 @@ public abstract class SpaceShip extends Entity{
 				if(timer < 7500) timer++;else timer = 0;
 				if(timer % RATE_DIRECTION == 0) { 
 					pickDirection();
-				}
+					}
 				checkCollisionWithWorld();
 				bounds.x+=xDir;
 				bounds.y+=yDir;
@@ -47,10 +50,10 @@ public abstract class SpaceShip extends Entity{
 				if(fire!=null) { 
 					if(collision(fire)) { 
 						 remove();
-						 level.getPlayer().setFire(null);
-						 Animation exp =  new Animation("explosion0",EXPLOSION_TIME);
-						 exp.setAnimationLocation(bounds.x, bounds.y, EXPLOSION_WIDTH, EXPLOSION_HEIGHT);
-						 level.addAnimation(exp);
+						 Player p = level.getPlayer();
+						 p.setFire(null);
+						 p.whenShipIsDestroyed();
+						 animateExplosion();
 					}
 				}
 				if(timer % RATE_FIRE == 0) { 
@@ -58,11 +61,16 @@ public abstract class SpaceShip extends Entity{
 				}
 			}
 			
+			private void animateExplosion() { 
+				 Animation exp =  new Animation("explosion0",EXPLOSION_TIME);
+				 exp.setAnimationLocation(bounds.x, bounds.y, EXPLOSION_WIDTH, EXPLOSION_HEIGHT);
+				 level.addAnimation(exp);
+			}
 			
 			protected abstract void shoot();
 			
 			private void pickDirection() {
-				 xDir = random.nextInt(3) - 1;
+				// xDir = random.nextInt(3) - 1;
 			   //yDir = random.nextInt(3) - 1;
 			}
 			

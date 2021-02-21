@@ -6,13 +6,13 @@ import java.util.Random;
 import java.util.Vector;
 
 import com.game.Game;
-import com.game.entity.Crab;
 import com.game.entity.Entity;
-import com.game.entity.Octopus;
 import com.game.entity.Player;
-import com.game.entity.SpaceShip;
-import com.game.entity.Squid;
 import com.game.entity.fires.Fire;
+import com.game.entity.spaceships.Crab;
+import com.game.entity.spaceships.Octopus;
+import com.game.entity.spaceships.SpaceShip;
+import com.game.entity.spaceships.Squid;
 import com.game.gfx.Animation;
 
 public class Level {
