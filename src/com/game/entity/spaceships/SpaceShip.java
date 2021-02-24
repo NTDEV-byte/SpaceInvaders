@@ -8,7 +8,6 @@ import com.game.entity.Player;
 import com.game.entity.fires.PlayerFire;
 import com.game.gfx.Animation;
 import com.game.gfx.SpriteLoader;
-import com.game.sound.SoundPlayer;
 
 public abstract class SpaceShip extends Entity{
 	
@@ -70,7 +69,7 @@ public abstract class SpaceShip extends Entity{
 			protected abstract void shoot();
 			
 			private void pickDirection() {
-				// xDir = random.nextInt(3) - 1;
+				 xDir = random.nextInt(3) - 1;
 			   //yDir = random.nextInt(3) - 1;
 			}
 			

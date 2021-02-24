@@ -8,6 +8,7 @@ import java.awt.Rectangle;
 import com.game.Game;
 import com.game.entity.fires.PlayerFire;
 import com.game.entity.spaceships.SpaceShip;
+import com.game.gfx.Animation;
 import com.game.input.InputHandler;
 import com.game.sound.SoundPlayer;
 
@@ -19,6 +20,7 @@ public class Player extends SpaceShip{
 	private PlayerFire fire;
 	private InputHandler input = Game.input;
 	private int score = 0;
+	private int lives = 3;
 	
 	public Player(Rectangle bounds) {
 		super("player", bounds);
@@ -32,6 +34,7 @@ public class Player extends SpaceShip{
 			 bounds.x-=speed;
 		 }
 		 shoot();
+		 if(level.playerHited()) lives--;
 	}
 	
 	public void shoot() { 
@@ -58,9 +61,32 @@ public class Player extends SpaceShip{
 		if(fire!=null) {
 			 fire.render(g);
 		}
+		if(lives <= 0) {
+			 gameOver(g);
+		}
 		showScore(g);
+		showRemainingLives(g);
 	}
 	
+	
+	private void gameOver(Graphics g) { 
+		g.setColor(Color.red);
+		g.setFont(new Font("Verdana",Font.BOLD,45));
+		g.drawString("Game Over !",Game.WIDTH / 2 - 100 , Game.HEIGHT / 2);
+	}
+	
+	
+	
+	private void showRemainingLives(Graphics g) { 
+		if(lives >= 0) {
+			int spx = 20;
+			g.setColor(Color.green);
+			for(int i=0;i<lives;i++) {
+				g.fillRect(5 + spx, Game.HEIGHT - 10, 20, 20);
+				spx+=30;
+			}
+		}
+	}
 	private void showScore(Graphics g) { 
 		g.setColor(Color.red);
 		g.setFont(new Font("Verdana",Font.BOLD,15));

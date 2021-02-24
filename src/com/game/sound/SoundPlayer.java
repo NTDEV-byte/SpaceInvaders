@@ -22,6 +22,9 @@ public class SoundPlayer implements Runnable{
 		private static String names[] = {"astro.wav","main.wav","shoot.wav","explosion.wav"};
 		private static HashMap<String,AudioInputStream> sounds = new HashMap<String,AudioInputStream>();
 		private static Clip clip = getClip();
+		private static boolean playing = true;
+		
+		
 		
 					public SoundPlayer() { 
 					}
@@ -109,16 +112,12 @@ public class SoundPlayer implements Runnable{
 						loadSounds();
 						play("main");
 						
-						while(true) {
-							actions();
-						}
-					}
-					
-					
-					public static void main(String[] args) { 
-					
+						while(playing);
 						
+						soundThread.stop();
 					}
 					
-
+					public void quit() { 
+						playing = false;
+					}
 }

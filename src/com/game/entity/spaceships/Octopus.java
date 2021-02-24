@@ -15,7 +15,7 @@ public class Octopus extends SpaceShip{
 
 			@Override
 			protected void shoot() {
-				level.addEntity(new LaserL(new Rectangle(bounds.x + SHOOT_OFFSET_X,bounds.y + SHOOT_OFFSET_Y,10,15),this));
+				level.addEntity(new LaserL(new Rectangle(bounds.x + SHOOT_OFFSET_X,bounds.y + SHOOT_OFFSET_Y,15,20),this));
 			}
 
 }

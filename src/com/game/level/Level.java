@@ -1,5 +1,6 @@
 package com.game.level;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.Random;
@@ -21,6 +22,10 @@ public class Level {
 	public static final int SQUID = 1;
 	public static final int OCTOPUS = 2;
 	
+	
+	
+	
+		private static int wave = 1;
 		private Vector<Entity> levelObjects;
 		private Vector<Animation> animations;
 		private Vector<Fire> fires;
@@ -103,6 +108,11 @@ public class Level {
 						f.update();
 					}
 				}
+				
+				if(levelObjects.size() == 1) { 
+					generateMonsters(15,15,100,100,5,2);
+					wave++;
+				}
 			removeDestroyedSpaceShips();
 			removeTerminatedAnimations();
 			removeFires();
@@ -124,6 +134,8 @@ public class Level {
 					f.render(g);
 				}
 			}
+			g.setColor(Color.red);
+			g.drawString("Wave: "+wave, Game.WIDTH - 100, 80);
 		}
 		
 		private synchronized void removeDestroyedSpaceShips() { 
@@ -151,6 +163,16 @@ public class Level {
 			}
 		}
 		
+
+		public boolean playerHited() { 
+			for(int i=0;i<fires.size();i++) {
+				 if(fires.get(i).collision(player)) { 
+					 return true;
+				 }
+			}
+			
+			return false;
+		}
 		public Player getPlayer() {
 			return player;
 		}
